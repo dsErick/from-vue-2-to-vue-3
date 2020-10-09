@@ -1,8 +1,8 @@
 <template>
 <div id="app">
     <salutation-name
-        v-model:salutation="form.salutation"
-        v-model:name="form.name"
+        v-model:salutation.capitalize="form.salutation"
+        v-model:name.capitalize.reverse="form.name"
     />
 
     <pre>{{ form }}</pre>

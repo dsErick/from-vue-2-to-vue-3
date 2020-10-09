@@ -1,6 +1,6 @@
 <template>
 <div>
-    <select @change="$emit('update:salutation', $event.target.value)">
+    <select @change="updateSalutation">
         <option value="">-</option>
         <option
             v-for="item in salutations"
@@ -15,7 +15,7 @@
     <input
         type="text"
         :value="name"
-        @input="$emit('update:name', $event.target.value)"
+        @input="updateName"
     >
 </div>
 </template>
@@ -30,13 +30,43 @@ export default {
         salutation: {
             type: String, default: ''
         },
+        salutationModifiers: {
+            default: () => ({})
+        },
         name: {
             type: String, default: ''
+        },
+        nameModifiers: {
+            default: () => ({})
         }
     },
-    setup() {
+    setup(props, { emit }) {
+        const updateSalutation = e => {
+            let val = e.target.value
+
+            if (props.salutationModifiers.capitalize) val = val.toUpperCase()
+            
+            emit('update:salutation', val)
+        }
+
+        const updateName = e => {
+            let val = e.target.value
+
+            if (props.nameModifiers.capitalize) {
+                val = val.charAt(0).toUpperCase() + val.slice(1)
+            }
+
+            if (props.nameModifiers.reverse) {
+                val = val.split('').reverse().join('')
+            }
+
+            emit('update:name', val)
+        }
+        
         return {
-            salutations
+            salutations,
+            updateSalutation,
+            updateName
         }
     }
 }
