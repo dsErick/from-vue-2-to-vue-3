@@ -1,19 +1,31 @@
 <template>
-<div>
-    <BaseInput v-model="myInput" />
+<div id="app">
+    <salutation-name
+        v-model:salutation="form.salutation"
+        v-model:name="form.name"
+    />
+
+    <pre>{{ form }}</pre>
 </div>
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+import { reactive, defineAsyncComponent } from 'vue'
 
 export default {
     name: 'App',
     components: {
-        BaseInput: defineAsyncComponent(() => import('./components/BaseInput'))
+        SalutationName: defineAsyncComponent(() => import('./components/SalutationName'))
     },
-    data() {
-        return { myInput: 'asd' }
+    setup() {
+        const form = reactive({
+            salutation: 'Mr.',
+            name: ''
+        })
+
+        return {
+            form
+        }
     }
 }
 </script>

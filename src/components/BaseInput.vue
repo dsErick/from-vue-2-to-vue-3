@@ -1,4 +1,18 @@
 <template>
+<!--
+/*
+ * On parent
+ */
+ 
+<base-input v-model="myInput" />
+
+/*
+ * Or
+ */
+ 
+<base-input v-model:modelValue="myInput" />
+-->
+
 <input
     :value="modelValue"
     @input="$emit('update:modelValue', $event.target.value)"
@@ -17,7 +31,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 input {
     background: darkslateblue;
     color: white;
