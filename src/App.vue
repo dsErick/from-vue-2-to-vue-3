@@ -1,30 +1,43 @@
 <template>
 <div id="app">
-    <salutation-name
+    <base-input
+        v-model="email"
+        @blur="email = 'blurrr@its.cold'"
+        label="Email"
+        class="bg-red"
+        type="email"
+    />
+
+    <pre>Email: {{ email }}</pre>
+
+    <!-- <salutation-name
         v-model:salutation.capitalize="form.salutation"
         v-model:name.capitalize.reverse="form.name"
     />
 
-    <pre>{{ form }}</pre>
+    <pre>{{ form }}</pre> -->
 </div>
 </template>
 
 <script>
-import { reactive, defineAsyncComponent } from 'vue'
+import { ref, reactive, defineAsyncComponent } from 'vue'
 
 export default {
     name: 'App',
     components: {
-        SalutationName: defineAsyncComponent(() => import('./components/SalutationName'))
+        BaseInput: defineAsyncComponent(() => import('./components/BaseInput')),
+        // SalutationName: defineAsyncComponent(() => import('./components/SalutationName'))
     },
     setup() {
         const form = reactive({
             salutation: 'Mr.',
             name: ''
         })
+        const email = ref('')
 
         return {
-            form
+            form,
+            email
         }
     }
 }
